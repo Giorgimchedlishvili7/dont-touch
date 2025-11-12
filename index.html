@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CAT CLICKER </title>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <style>
+    body{
+        background-color: gray;
+    }
+  </style>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    background-color: gray;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      margin-top: 20px;
+      color: #333;
+    }
+
+    #cat {
+      width: 200px;
+      cursor: pointer;
+      transition: transform 0.1s ease;
+      border-radius: 50%;
+    }
+
+    #cat:active {
+      transform: scale(0.9);
+    }
+
+    #score {
+      font-size: 24px;
+      margin: 15px;
+      color: #222;
+    }
+
+    #leaderboard {
+      background: white;
+      width: 300px;
+      margin: 20px auto;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    #leaderboard h2 {
+      margin-top: 0;
+    }
+
+  
+  </style>
+</head>
+<body>
+  <h1>Cat Clicker Game </h1>
+  <p id="score">Score: 0</p>
+  <img id="cat" src="data:image/jpeg;base64,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"width = "700px" alt="Cat">
+  <br>
+  <button id="saveScore">SAVE Score NOWWW</button>
+
+  <div id="leaderboard">
+    <h2> Leaderboard
+        YOU BETTER LIKE IT
+    </h2>
+    <ol id="scoreList"></ol>
+  </div>
+
+  <script>
+    const cat = document.getElementById('cat');
+    const scoreDisplay = document.getElementById('score');
+    const saveButton = document.getElementById('saveScore');
+    const scoreList = document.getElementById('scoreList');
+
+    let score = 0;
+
+    // Load leaderboard from localStorage
+    let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+
+    function updateLeaderboard() {
+      scoreList.innerHTML = '';
+      leaderboard.slice(0, 5).forEach((item, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} — ${item.score}`;
+        scoreList.appendChild(li);
+      });
+    }
+
+    cat.addEventListener('click', () => {
+      score++;
+      scoreDisplay.textContent = `Score: ${score}`;
+    });
+
+    saveButton.addEventListener('click', () => {
+      const name = prompt("Enter your name for the leaderboard:");
+      if (!name) return;
+
+      leaderboard.push({ name, score });
+      leaderboard.sort((a, b) => b.score - a.score); // highest first
+      leaderboard = leaderboard.slice(0, 10); // keep top 10
+      localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+      updateLeaderboard();
+      score = 0;
+      scoreDisplay.textContent = "Score: 0";
+    });
+
+    updateLeaderboard();
+  </script>
+</body>
+</html>
