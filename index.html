@@ -1,120 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>CAT CLICKER </title>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <style>
-    body{
-        background-color: gray;
-    }
-  </style>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAT CLICKER</title>
+<style>
+  body {
+    font-family: "Comic Sans MS", sans-serif;
+    background: linear-gradient(to bottom right, gray, gray);
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+  h1 {
+    margin-top: 20px;
+  }
+  #cat {
+    width: 200px;
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+  #cat:active {
+    transform: scale(1.1);
+  }
+  #score {
+    font-size: 24px;
+    margin: 15px 0;
+  }
+  #store {
+    background: #fff;
+    border-radius: 10px;
+    width: 300px;
+    margin: 15px auto;
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+  #store button {
+    margin: 6px 0;
+    padding: 8px 12px;
+    width: 90%;
+    border: none;
+    border-radius: 6px;
     background-color: gray;
-      height: 100vh;
-      margin: 0;
-    }
-
-    h1 {
-      margin-top: 20px;
-      color: #333;
-    }
-
-    #cat {
-      width: 200px;
-      cursor: pointer;
-      transition: transform 0.1s ease;
-      border-radius: 50%;
-    }
-
-    #cat:active {
-      transform: scale(0.9);
-    }
-
-    #score {
-      font-size: 24px;
-      margin: 15px;
-      color: #222;
-    }
-
-    #leaderboard {
-      background: white;
-      width: 300px;
-      margin: 20px auto;
-      padding: 10px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-
-    #leaderboard h2 {
-      margin-top: 0;
-    }
-
-  
-  </style>
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+  }
+  #store button:hover {
+    background-color: gray;
+  }
+  #leaderboard {
+    background: white;
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+  #leaderboard h2 {
+    margin-top: 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 6px;
+    border-bottom: 1px solid #ddd;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  input, button {
+    padding: 6px 10px;
+    margin-top: 5px;
+  }
+</style>
 </head>
 <body>
-  <h1>Cat Clicker Game </h1>
-  <p id="score">Score: 0</p>
-  <img id="cat" src="data:image/jpeg;base64,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"width = "700px" alt="Cat">
-  <br>
-  <button id="saveScore">SAVE Score NOWWW</button>
 
-  <div id="leaderboard">
-    <h2> Leaderboard
-        YOU BETTER LIKE IT
-    </h2>
-    <ol id="scoreList"></ol>
-  </div>
+<h1> CAT CLICKER</h1>
+<p id="score">Clicks: 0</p>
+<p id="info">Clicks: 1 | Auto Clickers: 0</p>
 
-  <script>
-    const cat = document.getElementById('cat');
-    const scoreDisplay = document.getElementById('score');
-    const saveButton = document.getElementById('saveScore');
-    const scoreList = document.getElementById('scoreList');
+<img id="cat" src="data:image/jpeg;base64,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" alt="Cat">
 
-    let score = 0;
+<div id="store">
+  <h2>UPGRADE BRODAA</h2>
+  <button id="upgradeBtn">UPGRATE CAT (Cost: 50)</button>
+  <button id="autoBtn">UPGRATE CAT  (Cost: 100)</button>
+</div>
 
-    // Load leaderboard from localStorage
-    let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+<div id="saveSection">
+  <p>Enter your name to save your score:</p>
+  <input type="text" id="playerName" placeholder="Your name">
+  <button id="saveBtn">Save Score</button>
+</div>
 
-    function updateLeaderboard() {
-      scoreList.innerHTML = '';
-      leaderboard.slice(0, 5).forEach((item, index) => {
-        const li = document.createElement('li');
-        li.textContent = `${item.name} — ${item.score}`;
-        scoreList.appendChild(li);
-      });
-    }
+<div id="leaderboard">
+  <h2> Leaderboard </h2>
+  <table>
+    <thead>
+      <tr><th>Rank</th><th>Name</th><th>Score</th></tr>
+    </thead>
+    <tbody id="leaderboardBody">
+      <tr><td colspan="3">No scores yet!</td></tr>
+    </tbody>
+  </table>
+</div>
 
-    cat.addEventListener('click', () => {
-      score++;
-      scoreDisplay.textContent = `Score: ${score}`;
-    });
+<script>
+let score = 0;
+let clickPower = 1;
+let autoClickers = 0;
+let upgradeCost = 50;
+let autoCost = 100;
+const STORAGE_KEY = 'cat_clicker_leaderboard';
 
-    saveButton.addEventListener('click', () => {
-      const name = prompt("Enter your name for the leaderboard:");
-      if (!name) return;
+const scoreEl = document.getElementById('score');
+const infoEl = document.getElementById('info');
+const catEl = document.getElementById('cat');
+const upgradeBtn = document.getElementById('upgradeBtn');
+const autoBtn = document.getElementById('autoBtn');
+const saveBtn = document.getElementById('saveBtn');
+const playerNameInput = document.getElementById('playerName');
+const leaderboardBody = document.getElementById('leaderboardBody');
 
-      leaderboard.push({ name, score });
-      leaderboard.sort((a, b) => b.score - a.score); // highest first
-      leaderboard = leaderboard.slice(0, 10); // keep top 10
-      localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
-      updateLeaderboard();
-      score = 0;
-      scoreDisplay.textContent = "Score: 0";
-    });
+// Update the display
+function updateDisplay() {
+  scoreEl.textContent = "Clicks: " + Math.floor(score);
+  infoEl.textContent = `Clicks PER CLICKI: ${clickPower} | Auto Clickers: ${autoClickers}`;
+  upgradeBtn.textContent = `Upgrade POWER BRADOOO (Cost: ${upgradeCost})`;
+  autoBtn.textContent = `Buy Auto Clicker (Cost: ${autoCost})`;
+}
 
-    updateLeaderboard();
-  </script>
+// Clicking the cat
+catEl.addEventListener('click', () => {
+  score += clickPower;
+  updateDisplay();
+});
+
+// Buy upgrade
+upgradeBtn.addEventListener('click', () => {
+  if (score >= upgradeCost) {
+    score -= upgradeCost;
+    clickPower++;
+    upgradeCost = Math.floor(upgradeCost * 1.8);
+    updateDisplay();
+  } else {
+    alert("Not enough clicks to upgrade!");
+  }
+});
+
+// Buy auto clicker
+autoBtn.addEventListener('click', () => {
+  if (score >= autoCost) {
+    score -= autoCost;
+    autoClickers++;
+    autoCost = Math.floor(autoCost * 1.7);
+    updateDisplay();
+  } else {
+    alert("NOT ENOUGH MY BRODA");
+  }
+});
+
+// Auto clicker effect
+setInterval(() => {
+  score += autoClickers;
+  updateDisplay();
+}, 1000);
+
+// Save score
+saveBtn.addEventListener('click', () => {
+  const name = playerNameInput.value.trim() || "Anonymous";
+  if (score === 0) {
+    alert("Click the cat first to earn points");
+    return;
+  }
+  saveScore(name, Math.floor(score));
+  score = 0;
+  clickPower = 1;
+  autoClickers = 0;
+  upgradeCost = 50;
+  autoCost = 100;
+  updateDisplay();
+  playerNameInput.value = "";
+});
+
+// Leaderboard functions
+function saveScore(name, score) {
+  const leaderboard = loadScores();
+  leaderboard.push({ name, score });
+  leaderboard.sort((a, b) => b.score - a.score);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(leaderboard.slice(0, 10)));
+  renderLeaderboard();
+}
+
+function loadScores() {
+  return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+}
+
+function renderLeaderboard() {
+  const scores = loadScores();
+  if (scores.length === 0) {
+    leaderboardBody.innerHTML = '<tr><td colspan="3">No scores yet!</td></tr>';
+    return;
+  }
+  leaderboardBody.innerHTML = scores.map((s, i) => `
+    <tr>
+      <td>${i + 1}</td>
+      <td>${s.name}</td>
+      <td>${s.score}</td>
+    </tr>
+  `).join("");
+}
+
+updateDisplay();
+renderLeaderboard();
+</script>
+<button>CLICKE HERE IF YOU WANT TO BE COOL LIKE GIORGI</button>
+
 </body>
 </html>
